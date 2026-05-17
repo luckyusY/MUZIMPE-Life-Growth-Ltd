@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SmoothScroll } from "@/components/site-motion";
+import { WhatsAppContact } from "@/components/whatsapp-contact";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className="flex min-h-full flex-col antialiased">
         <SmoothScroll />
+        <WhatsAppContact />
         {children}
       </body>
     </html>

@@ -2,7 +2,7 @@
 
 Next.js website for MUZIMPE Life & Growth Ltd and EBGS - Episerie Bio Gloriette Sante.
 
-The site uses Lenis for smooth scrolling, Framer Motion for page and section animations, a sliding hero showcase, and WhatsApp contact actions.
+The site uses Lenis for smooth scrolling, Framer Motion for page and section animations, a sliding hero showcase, WhatsApp contact actions, and multiple pages for About, Services, Products and Contact.
 
 ## Business Details
 

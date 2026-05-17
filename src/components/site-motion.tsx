@@ -97,3 +97,22 @@ export function FloatIn({
     </motion.div>
   );
 }
+
+export function MotionCard({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={className}
+      whileHover={{ y: -5 }}
+      whileTap={{ scale: 0.99 }}
+      transition={{ duration: 0.22, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
+  );
+}

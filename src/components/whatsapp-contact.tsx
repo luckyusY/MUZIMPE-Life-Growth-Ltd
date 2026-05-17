@@ -1,12 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const message = encodeURIComponent(
-  "Hello MUZIMPE Life & Growth Ltd, I would like to know more about your products and services."
-);
-
-const whatsappUrl = `https://wa.me/250781375870?text=${message}`;
+import { whatsappUrl } from "@/lib/site-data";
 
 export function WhatsAppContact() {
   return (
@@ -29,5 +24,3 @@ export function WhatsAppContact() {
     </motion.a>
   );
 }
-
-export { whatsappUrl };

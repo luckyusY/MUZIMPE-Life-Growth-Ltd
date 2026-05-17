@@ -1,62 +1,12 @@
 import Image from "next/image";
 import { HeroShowcase } from "@/components/hero-showcase";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { FloatIn, MotionMain, Reveal } from "@/components/site-motion";
-import { WhatsAppContact, whatsappUrl } from "@/components/whatsapp-contact";
-
-const products = [
-  {
-    name: "Black Seeds and Flax Seeds Oil",
-    detail: "100% natural oil for daily wellness routines.",
-    image: "/products/a266fc50-3451-4f22-ae7f-25bd6cd551cd.jpg",
-  },
-  {
-    name: "Ginseng Oil",
-    detail: "A natural oil from the Live Natural collection.",
-    image: "/products/f9762fec-8ac0-4305-a1f1-fb037b4e5612.jpg",
-  },
-  {
-    name: "Natural wellness product",
-    detail: "Available from EBGS in Kigali.",
-    image: "/products/fbbc9e9c-35b6-4395-80dc-71c672c043c2.jpg",
-  },
-  {
-    name: "Herbal care product",
-    detail: "Selected for natural living and family wellbeing.",
-    image: "/products/f5d90a94-b4e5-44e6-80c9-8e926d4a5365.jpg",
-  },
-  {
-    name: "Bio health product",
-    detail: "Part of the EBGS product range.",
-    image: "/products/c9cb234f-8d45-4227-8275-8e913de7d29b.jpg",
-  },
-  {
-    name: "Natural living essential",
-    detail: "Visit BH Plaza to discover the full selection.",
-    image: "/products/bd4aa46e-5732-42c0-9d76-0b93af6fdf8b.jpg",
-  },
-];
-
-const contactLinks = [
-  { label: "0781375870", href: "tel:+250781375870" },
-  { label: "0784794936", href: "tel:+250784794936" },
-  { label: "WhatsApp", href: whatsappUrl },
-  {
-    label: "Email",
-    href: "mailto:muzimpelifemuzimpegrowth@gmail.com",
-  },
-];
-
-const trustPoints = [
-  ["Kigali store", "Visit EBGS at BH Plaza, 3rd floor Matheus near Yussa Plaza."],
-  ["Natural selection", "Products chosen for wellness, beauty and natural living routines."],
-  ["Growth guidance", "Entrepreneurship and family support for practical life progress."],
-  ["Direct support", "Call, email or WhatsApp for product availability and guidance."],
-];
+import { contactLinks, products, services, trustPoints } from "@/lib/site-data";
 
 export default function Home() {
   return (
     <MotionMain>
-      <WhatsAppContact />
       <section className="relative isolate overflow-hidden bg-[#182a22] text-white">
         <div className="absolute inset-0 -z-10">
           <Image
@@ -70,22 +20,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#13241d]/75" />
         </div>
 
-        <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-5 py-5 sm:px-8">
-          <a href="#" className="text-sm font-semibold uppercase tracking-[0.18em]">
-            MUZIMPE Life & Growth Ltd
-          </a>
-          <nav className="hidden items-center gap-6 text-sm text-white/78 md:flex">
-            <a href="#products" className="transition hover:text-white">
-              Products
-            </a>
-            <a href="#services" className="transition hover:text-white">
-              Focus
-            </a>
-            <a href="#contact" className="transition hover:text-white">
-              Contact
-            </a>
-          </nav>
-        </header>
+        <SiteHeader dark />
 
         <div className="mx-auto grid min-h-[82vh] w-full max-w-6xl items-center gap-10 px-5 pb-16 pt-8 sm:px-8 lg:grid-cols-[1.05fr_0.95fr]">
           <Reveal className="max-w-[350px] sm:max-w-3xl">
@@ -132,11 +67,7 @@ export default function Home() {
       </section>
 
       <section id="services" className="mx-auto grid w-full max-w-6xl gap-4 px-5 py-14 sm:px-8 md:grid-cols-3">
-        {[
-          ["Health and wellness", "Natural oils and bio products selected for everyday wellbeing."],
-          ["Natural living", "Practical products and guidance for families choosing cleaner routines."],
-          ["Life growth", "Entrepreneurship support, family guidance and personal development."],
-        ].map(([title, text]) => (
+        {services.slice(0, 3).map(({ title, text }) => (
           <Reveal key={title} className="rounded-lg border border-[#d8ddce] bg-white p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-[#1f372b]">{title}</h2>
             <p className="mt-3 leading-7 text-[#5e665b]">{text}</p>
@@ -283,25 +214,22 @@ export default function Home() {
               <a
                 key={item.href}
                 href={item.href}
-                target={item.label === "WhatsApp" ? "_blank" : undefined}
-                rel={item.label === "WhatsApp" ? "noopener noreferrer" : undefined}
+                target={item.type === "WhatsApp" ? "_blank" : undefined}
+                rel={item.type === "WhatsApp" ? "noopener noreferrer" : undefined}
                 className="rounded-lg border border-[#d5dbc8] bg-white p-5 text-center shadow-sm transition hover:-translate-y-0.5 hover:border-[#9cae76]"
               >
                 <span className="block text-sm font-semibold text-[#75815f]">
-                  {item.label === "Email" || item.label === "WhatsApp"
-                    ? item.label
-                    : "Phone"}
+                  {item.type}
                 </span>
                 <span className="mt-2 block break-words text-base font-semibold text-[#25372b]">
-                  {item.label === "Email" && "muzimpelifemuzimpegrowth@gmail.com"}
-                  {item.label === "WhatsApp" && "Chat on WhatsApp"}
-                  {item.label !== "Email" && item.label !== "WhatsApp" && item.label}
+                  {item.label}
                 </span>
               </a>
             ))}
           </div>
         </div>
       </section>
+      <SiteFooter />
     </MotionMain>
   );
 }
