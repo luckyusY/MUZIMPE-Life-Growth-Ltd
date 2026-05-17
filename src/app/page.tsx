@@ -1,5 +1,7 @@
 import Image from "next/image";
+import { HeroShowcase } from "@/components/hero-showcase";
 import { FloatIn, MotionMain, Reveal } from "@/components/site-motion";
+import { WhatsAppContact, whatsappUrl } from "@/components/whatsapp-contact";
 
 const products = [
   {
@@ -37,15 +39,24 @@ const products = [
 const contactLinks = [
   { label: "0781375870", href: "tel:+250781375870" },
   { label: "0784794936", href: "tel:+250784794936" },
+  { label: "WhatsApp", href: whatsappUrl },
   {
     label: "Email",
     href: "mailto:muzimpelifemuzimpegrowth@gmail.com",
   },
 ];
 
+const trustPoints = [
+  ["Kigali store", "Visit EBGS at BH Plaza, 3rd floor Matheus near Yussa Plaza."],
+  ["Natural selection", "Products chosen for wellness, beauty and natural living routines."],
+  ["Growth guidance", "Entrepreneurship and family support for practical life progress."],
+  ["Direct support", "Call, email or WhatsApp for product availability and guidance."],
+];
+
 export default function Home() {
   return (
     <MotionMain>
+      <WhatsAppContact />
       <section className="relative isolate overflow-hidden bg-[#182a22] text-white">
         <div className="absolute inset-0 -z-10">
           <Image
@@ -105,27 +116,18 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="grid max-w-[350px] grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:max-w-none sm:gap-4">
-            {products.slice(0, 4).map((product, index) => (
-              <FloatIn
-                key={product.image}
-                delay={0.12 + index * 0.08}
-                className={`relative overflow-hidden rounded-lg bg-white/8 shadow-2xl ring-1 ring-white/12 ${
-                  index === 0
-                    ? "aspect-[1.7/1] min-[420px]:col-span-2"
-                    : "aspect-[0.82/1]"
-                }`}
-              >
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  sizes={index === 0 ? "(min-width: 1024px) 520px, 90vw" : "260px"}
-                />
-              </FloatIn>
-            ))}
-          </div>
+          <FloatIn delay={0.16} className="max-w-[420px] sm:max-w-none">
+            <HeroShowcase />
+          </FloatIn>
+        </div>
+      </section>
+
+      <section className="border-y border-[#dfe5d7] bg-[#f7f5ef] py-5">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-5 text-sm font-semibold uppercase tracking-[0.16em] text-[#50604d] sm:px-8 md:flex-row md:items-center md:justify-between">
+          <span>Health and wellness</span>
+          <span>Natural living</span>
+          <span>Family guidance</span>
+          <span>Entrepreneurship support</span>
         </div>
       </section>
 
@@ -160,6 +162,21 @@ export default function Home() {
               for people building a better life.
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-[#182a22] py-16 text-white">
+        <div className="mx-auto grid w-full max-w-6xl gap-6 px-5 sm:px-8 lg:grid-cols-4">
+          {trustPoints.map(([title, text], index) => (
+            <Reveal
+              key={title}
+              delay={index * 0.05}
+              className="rounded-lg border border-white/12 bg-white/[0.06] p-5"
+            >
+              <p className="text-lg font-semibold text-[#f2c14e]">{title}</p>
+              <p className="mt-3 leading-7 text-white/74">{text}</p>
+            </Reveal>
+          ))}
         </div>
       </section>
 
@@ -206,6 +223,45 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-[#fbfaf7] py-16">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_1fr]">
+          <Reveal className="relative min-h-[420px] overflow-hidden rounded-lg bg-[#dfe5d7]">
+            <Image
+              src="/products/660baa3e-fe96-4195-8ba1-e471c0582fb6.jpg"
+              alt="Natural product available at EBGS"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 520px, 100vw"
+            />
+          </Reveal>
+          <Reveal delay={0.12} className="flex flex-col justify-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#73805d]">
+              How we help
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold leading-tight text-[#1e2f26] sm:text-5xl">
+              A local partner for healthier living and practical growth.
+            </h2>
+            <div className="mt-8 grid gap-4">
+              {[
+                "Choose natural products with guidance from the EBGS team.",
+                "Get family and wellness support that fits everyday life.",
+                "Discuss entrepreneurship ideas and small business growth steps.",
+              ].map((item, index) => (
+                <div
+                  key={item}
+                  className="flex gap-4 border-t border-[#d8ddce] pt-4"
+                >
+                  <span className="font-semibold text-[#9a7b1e]">
+                    0{index + 1}
+                  </span>
+                  <p className="text-lg leading-8 text-[#4d5a50]">{item}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section id="contact" className="bg-[#edf1e6] py-16">
         <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
@@ -222,20 +278,24 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             {contactLinks.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
+                target={item.label === "WhatsApp" ? "_blank" : undefined}
+                rel={item.label === "WhatsApp" ? "noopener noreferrer" : undefined}
                 className="rounded-lg border border-[#d5dbc8] bg-white p-5 text-center shadow-sm transition hover:-translate-y-0.5 hover:border-[#9cae76]"
               >
                 <span className="block text-sm font-semibold text-[#75815f]">
-                  {item.label === "Email" ? "Email" : "Phone"}
+                  {item.label === "Email" || item.label === "WhatsApp"
+                    ? item.label
+                    : "Phone"}
                 </span>
                 <span className="mt-2 block break-words text-base font-semibold text-[#25372b]">
-                  {item.label === "Email"
-                    ? "muzimpelifemuzimpegrowth@gmail.com"
-                    : item.label}
+                  {item.label === "Email" && "muzimpelifemuzimpegrowth@gmail.com"}
+                  {item.label === "WhatsApp" && "Chat on WhatsApp"}
+                  {item.label !== "Email" && item.label !== "WhatsApp" && item.label}
                 </span>
               </a>
             ))}
