@@ -2,7 +2,29 @@ import Image from "next/image";
 import { HeroShowcase } from "@/components/hero-showcase";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { FloatIn, MotionMain, Reveal } from "@/components/site-motion";
-import { contactLinks, products, services, trustPoints } from "@/lib/site-data";
+import {
+  contactLinks,
+  products,
+  services,
+  trustPoints,
+  whatsappUrl,
+} from "@/lib/site-data";
+
+const stats = [
+  ["EBGS", "Natural wellness store"],
+  ["2", "Direct phone contacts"],
+  ["4", "Growth focus areas"],
+  ["Kigali", "BH Plaza location"],
+];
+
+const marqueeItems = [
+  "Health",
+  "Wellness",
+  "Natural living",
+  "Family guidance",
+  "Entrepreneurship",
+  "Life growth",
+];
 
 export default function Home() {
   return (
@@ -58,11 +80,15 @@ export default function Home() {
       </section>
 
       <section className="border-y border-[#dfe5d7] bg-[#f7f5ef] py-5">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-5 text-sm font-semibold uppercase tracking-[0.16em] text-[#50604d] sm:px-8 md:flex-row md:items-center md:justify-between">
-          <span>Health and wellness</span>
-          <span>Natural living</span>
-          <span>Family guidance</span>
-          <span>Entrepreneurship support</span>
+        <div className="overflow-hidden whitespace-nowrap">
+          <div className="animate-marquee inline-flex gap-8 pr-8 text-sm font-semibold uppercase tracking-[0.16em] text-[#50604d]">
+            {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, index) => (
+              <span key={`${item}-${index}`} className="inline-flex items-center gap-8">
+                {item}
+                <span className="size-2 rounded-full bg-[#f2c14e]" />
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -96,6 +122,25 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-[#101f18] py-16 text-white">
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="grid gap-4 md:grid-cols-4">
+            {stats.map(([value, label], index) => (
+              <Reveal
+                key={label}
+                delay={index * 0.05}
+                className="rounded-lg border border-white/12 bg-white/[0.06] p-6 text-center transition hover:-translate-y-1 hover:bg-white/[0.09]"
+              >
+                <p className="text-4xl font-semibold text-[#f2c14e]">{value}</p>
+                <p className="mt-2 text-sm uppercase tracking-[0.16em] text-white/64">
+                  {label}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-[#182a22] py-16 text-white">
         <div className="mx-auto grid w-full max-w-6xl gap-6 px-5 sm:px-8 lg:grid-cols-4">
           {trustPoints.map(([title, text], index) => (
@@ -108,6 +153,64 @@ export default function Home() {
               <p className="mt-3 leading-7 text-white/74">{text}</p>
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-[#fbfaf7] py-16">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <Reveal className="flex flex-col justify-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#73805d]">
+              Now at EBGS
+            </p>
+            <h2 className="mt-3 text-5xl font-semibold leading-[1.02] text-[#1e2f26] sm:text-7xl">
+              Natural picks for your routine.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-[#5b6658]">
+              A store-style spotlight inspired by bold product-first websites:
+              clear visuals, direct calls to action and quick ways to ask what
+              is available today.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="/products"
+                className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#182a22] px-6 text-sm font-semibold text-white transition hover:bg-[#263d31]"
+              >
+                View products
+              </a>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#bdc7b3] px-6 text-sm font-semibold text-[#1e2f26] transition hover:border-[#1e2f26]"
+              >
+                Ask availability
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.12} className="grid grid-cols-2 gap-4">
+            {products.slice(0, 4).map((product, index) => (
+              <a
+                key={product.image}
+                href="/products"
+                className={`group relative overflow-hidden rounded-lg bg-[#dfe5d7] ${
+                  index === 0 ? "col-span-2 aspect-[1.8/1]" : "aspect-[0.9/1]"
+                }`}
+              >
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                  sizes={index === 0 ? "(min-width: 1024px) 620px, 90vw" : "300px"}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#101f18]/84 via-transparent to-transparent opacity-85" />
+                <p className="absolute bottom-4 left-4 right-4 text-lg font-semibold text-white">
+                  {product.name}
+                </p>
+              </a>
+            ))}
+          </Reveal>
         </div>
       </section>
 
@@ -228,6 +331,24 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+      <section className="bg-[#f2c14e] px-5 py-16 text-[#1e2a20] sm:px-8">
+        <Reveal className="mx-auto flex w-full max-w-6xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em]">
+              Stay connected
+            </p>
+            <h2 className="mt-3 max-w-3xl text-4xl font-semibold leading-tight sm:text-5xl">
+              Message us for products, wellness support or growth guidance.
+            </h2>
+          </div>
+          <a
+            href="mailto:muzimpelifemuzimpegrowth@gmail.com"
+            className="inline-flex min-h-12 items-center justify-center rounded-md bg-[#182a22] px-6 text-sm font-semibold text-white transition hover:bg-[#263d31]"
+          >
+            Send an email
+          </a>
+        </Reveal>
       </section>
       <SiteFooter />
     </MotionMain>
