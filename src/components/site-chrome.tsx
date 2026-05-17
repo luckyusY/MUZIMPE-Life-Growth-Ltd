@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { contactLinks } from "@/lib/site-data";
+import { contactLinks, whatsappUrl } from "@/lib/site-data";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -12,30 +12,68 @@ const navItems = [
 export function SiteHeader({ dark = false }: { dark?: boolean }) {
   return (
     <header
-      className={`mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-5 py-5 sm:px-8 ${
-        dark ? "text-white" : "text-[#1e2f26]"
+      className={`sticky top-0 z-40 border-b backdrop-blur-xl ${
+        dark
+          ? "border-white/10 bg-[#102019]/72 text-white"
+          : "border-[#dfe5d7] bg-[#fbfaf7]/86 text-[#1e2f26]"
       }`}
     >
-      <Link href="/" className="text-sm font-semibold uppercase tracking-[0.18em]">
-        MUZIMPE Life & Growth Ltd
-      </Link>
-      <nav
-        className={`hidden items-center gap-5 text-sm md:flex ${
-          dark ? "text-white/78" : "text-[#53614f]"
-        }`}
-      >
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`transition ${
-              dark ? "hover:text-white" : "hover:text-[#1f3328]"
-            }`}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-5 px-5 py-4 sm:px-8">
+        <Link href="/" className="min-w-0 text-sm font-semibold uppercase tracking-[0.16em]">
+          <span className="block truncate">MUZIMPE Life & Growth Ltd</span>
+        </Link>
+
+        <nav
+          className={`hidden items-center gap-1 rounded-full border p-1 text-sm md:flex ${
+            dark
+              ? "border-white/12 bg-white/8 text-white/78"
+              : "border-[#d8ddce] bg-white/72 text-[#53614f]"
+          }`}
+        >
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`rounded-full px-4 py-2 transition ${
+                dark
+                  ? "hover:bg-white/12 hover:text-white"
+                  : "hover:bg-[#edf1e6] hover:text-[#1f3328]"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`hidden min-h-10 items-center justify-center rounded-full px-4 text-sm font-semibold transition sm:inline-flex ${
+            dark
+              ? "bg-[#f2c14e] text-[#172219] hover:bg-[#ffd469]"
+              : "bg-[#182a22] text-white hover:bg-[#263d31]"
+          }`}
+        >
+          WhatsApp
+        </a>
+
+        <div className="flex gap-2 md:hidden">
+          {[navItems[0], navItems[3], navItems[4]].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`rounded-full border px-3 py-2 text-xs font-semibold ${
+                dark
+                  ? "border-white/12 bg-white/8 text-white/82"
+                  : "border-[#d8ddce] bg-white/70 text-[#53614f]"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      </div>
     </header>
   );
 }
