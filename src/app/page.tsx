@@ -1,35 +1,36 @@
 import Image from "next/image";
+import { FloatIn, MotionMain, Reveal } from "@/components/site-motion";
 
 const products = [
   {
     name: "Black Seeds and Flax Seeds Oil",
     detail: "100% natural oil for daily wellness routines.",
-    image: "/products/a266fc50-3451-4f22-ae7f-25bd6cd551cd.jfif",
+    image: "/products/a266fc50-3451-4f22-ae7f-25bd6cd551cd.jpg",
   },
   {
     name: "Ginseng Oil",
     detail: "A natural oil from the Live Natural collection.",
-    image: "/products/f9762fec-8ac0-4305-a1f1-fb037b4e5612.jfif",
+    image: "/products/f9762fec-8ac0-4305-a1f1-fb037b4e5612.jpg",
   },
   {
     name: "Natural wellness product",
     detail: "Available from EBGS in Kigali.",
-    image: "/products/fbbc9e9c-35b6-4395-80dc-71c672c043c2.jfif",
+    image: "/products/fbbc9e9c-35b6-4395-80dc-71c672c043c2.jpg",
   },
   {
     name: "Herbal care product",
     detail: "Selected for natural living and family wellbeing.",
-    image: "/products/f5d90a94-b4e5-44e6-80c9-8e926d4a5365.jfif",
+    image: "/products/f5d90a94-b4e5-44e6-80c9-8e926d4a5365.jpg",
   },
   {
     name: "Bio health product",
     detail: "Part of the EBGS product range.",
-    image: "/products/c9cb234f-8d45-4227-8275-8e913de7d29b.jfif",
+    image: "/products/c9cb234f-8d45-4227-8275-8e913de7d29b.jpg",
   },
   {
     name: "Natural living essential",
     detail: "Visit BH Plaza to discover the full selection.",
-    image: "/products/bd4aa46e-5732-42c0-9d76-0b93af6fdf8b.jfif",
+    image: "/products/bd4aa46e-5732-42c0-9d76-0b93af6fdf8b.jpg",
   },
 ];
 
@@ -44,11 +45,11 @@ const contactLinks = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#fbfaf7] text-[#22251f]">
+    <MotionMain>
       <section className="relative isolate overflow-hidden bg-[#182a22] text-white">
         <div className="absolute inset-0 -z-10">
           <Image
-            src="/products/a266fc50-3451-4f22-ae7f-25bd6cd551cd.jfif"
+            src="/products/a266fc50-3451-4f22-ae7f-25bd6cd551cd.jpg"
             alt="Black seeds and flax seeds natural oil"
             fill
             priority
@@ -76,16 +77,17 @@ export default function Home() {
         </header>
 
         <div className="mx-auto grid min-h-[82vh] w-full max-w-6xl items-center gap-10 px-5 pb-16 pt-8 sm:px-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="max-w-[350px] sm:max-w-3xl">
+          <Reveal className="max-w-[350px] sm:max-w-3xl">
             <p className="mb-5 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white/86">
               EBGS - Episerie Bio Gloriette Sante
             </p>
-            <h1 className="max-w-4xl text-2xl font-semibold leading-[1.1] text-white sm:text-6xl lg:text-7xl">
-              Welcome to MUZIMPE Life & Growth Ltd
+            <h1 className="max-w-4xl text-3xl font-semibold leading-[1.03] text-white sm:text-6xl lg:text-7xl">
+              Natural living, family growth and business support
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-white/82 sm:text-xl sm:leading-8">
-              Promoting health, wellness and natural living through EBGS while
-              supporting entrepreneurship, family guidance and life growth.
+              Welcome to MUZIMPE Life & Growth Ltd. We promote health and
+              wellness through EBGS while supporting entrepreneurship, family
+              guidance and life growth.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
@@ -101,12 +103,13 @@ export default function Home() {
                 Email us
               </a>
             </div>
-          </div>
+          </Reveal>
 
           <div className="grid max-w-[350px] grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:max-w-none sm:gap-4">
             {products.slice(0, 4).map((product, index) => (
-              <div
+              <FloatIn
                 key={product.image}
+                delay={0.12 + index * 0.08}
                 className={`relative overflow-hidden rounded-lg bg-white/8 shadow-2xl ring-1 ring-white/12 ${
                   index === 0
                     ? "aspect-[1.7/1] min-[420px]:col-span-2"
@@ -120,7 +123,7 @@ export default function Home() {
                   className="object-cover"
                   sizes={index === 0 ? "(min-width: 1024px) 520px, 90vw" : "260px"}
                 />
-              </div>
+              </FloatIn>
             ))}
           </div>
         </div>
@@ -132,11 +135,32 @@ export default function Home() {
           ["Natural living", "Practical products and guidance for families choosing cleaner routines."],
           ["Life growth", "Entrepreneurship support, family guidance and personal development."],
         ].map(([title, text]) => (
-          <article key={title} className="rounded-lg border border-[#d8ddce] bg-white p-6 shadow-sm">
+          <Reveal key={title} className="rounded-lg border border-[#d8ddce] bg-white p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-[#1f372b]">{title}</h2>
             <p className="mt-3 leading-7 text-[#5e665b]">{text}</p>
-          </article>
+          </Reveal>
         ))}
+      </section>
+
+      <section className="bg-[#f2c14e] py-16 text-[#1e2a20]">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <Reveal>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em]">
+              Welcome
+            </p>
+            <h2 className="mt-3 text-4xl font-semibold leading-tight sm:text-5xl">
+              Practical support for healthier homes and stronger businesses.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p className="text-xl leading-9">
+              Inspired by the reference style, this site now gives MUZIMPE Life
+              & Growth Ltd a clearer story: natural products people can trust,
+              family guidance that feels close, and entrepreneurship support
+              for people building a better life.
+            </p>
+          </Reveal>
+        </div>
       </section>
 
       <section id="products" className="bg-white py-16">
@@ -157,9 +181,10 @@ export default function Home() {
           </div>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((product) => (
-              <article
+            {products.map((product, index) => (
+              <Reveal
                 key={product.image}
+                delay={(index % 3) * 0.06}
                 className="overflow-hidden rounded-lg border border-[#e1e5db] bg-[#fbfaf7]"
               >
                 <div className="relative aspect-[4/5] bg-[#eef0e8]">
@@ -175,7 +200,7 @@ export default function Home() {
                   <h3 className="text-lg font-semibold text-[#223428]">{product.name}</h3>
                   <p className="mt-2 leading-6 text-[#64705f]">{product.detail}</p>
                 </div>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -183,7 +208,7 @@ export default function Home() {
 
       <section id="contact" className="bg-[#edf1e6] py-16">
         <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
+          <Reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#71805c]">
               Visit or contact
             </p>
@@ -195,7 +220,7 @@ export default function Home() {
               the team for product questions, wellness support and
               entrepreneurship guidance.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid gap-3 sm:grid-cols-3">
             {contactLinks.map((item) => (
@@ -217,6 +242,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+    </MotionMain>
   );
 }

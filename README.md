@@ -2,6 +2,8 @@
 
 Next.js website for MUZIMPE Life & Growth Ltd and EBGS - Episerie Bio Gloriette Sante.
 
+The site uses Lenis for smooth scrolling and Framer Motion for page and section animations.
+
 ## Business Details
 
 - Email: muzimpelifemuzimpegrowth@gmail.com
