@@ -90,6 +90,12 @@ export function SiteFooter() {
             Promoting health, wellness and natural living through EBGS while
             supporting entrepreneurship, family guidance and life growth.
           </p>
+          <Link
+            href="/admin"
+            className="mt-5 inline-flex text-sm font-semibold text-white/62 transition hover:text-[#f2c14e]"
+          >
+            Admin dashboard
+          </Link>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {contactLinks.map((item) => (
