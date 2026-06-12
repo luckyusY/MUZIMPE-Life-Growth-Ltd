@@ -1,21 +1,26 @@
-import { AdminPageShell } from "@/components/admin-page-shell";
+import type { Metadata } from "next";
+import { AdminBar } from "@/components/admin/admin-bar";
+import { ProductForm } from "@/components/admin/product-form";
+import { requireAdmin } from "@/lib/admin-auth";
 
-export default function NewProductPage() {
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Add Product",
+  robots: { index: false },
+};
+
+export default async function NewProductPage() {
+  await requireAdmin();
+
   return (
-    <AdminPageShell
-      title="New Product"
-      text="Create product route matching the reference admin structure."
-    >
-      <form className="grid gap-4 rounded-lg border border-[#e7ddc7] bg-white p-6">
-        {["Product name", "Brand", "Category", "Price", "Image URL", "Description"].map((field) => (
-          <label key={field}>
-            <span className="text-sm font-black uppercase tracking-wide text-[#8b641e]">
-              {field}
-            </span>
-            <input className="mt-2 min-h-11 w-full rounded-md border border-[#e7ddc7] bg-[#f6f2ea] px-3" />
-          </label>
-        ))}
-      </form>
-    </AdminPageShell>
+    <main className="mx-auto max-w-7xl px-4 py-8">
+      <AdminBar />
+      <h1 className="text-3xl font-black">Add product</h1>
+      <p className="mt-2 text-sm font-semibold text-[#6b7280]">
+        Add a product to MongoDB. It appears in the storefront immediately.
+      </p>
+      <ProductForm />
+    </main>
   );
 }

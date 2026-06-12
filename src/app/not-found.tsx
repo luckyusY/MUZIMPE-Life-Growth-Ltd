@@ -1,29 +1,29 @@
+import { SearchX } from "lucide-react";
 import Link from "next/link";
-import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#f6f2ea] text-[#15110a]">
-      <SiteHeader />
-      <section className="px-5 py-20 text-center sm:px-8">
-        <p className="gold-ribbon inline-flex py-1 pl-3 pr-6 text-[10px] font-black uppercase tracking-wide text-white">
-          404
-        </p>
-        <h1 className="mx-auto mt-6 max-w-3xl text-5xl font-black leading-tight sm:text-7xl">
-          This page is not in the catalog.
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl leading-8 text-[#6b5f4c]">
-          Go back to the storefront and continue browsing MUZIMPE products and
-          services.
-        </p>
+    <main className="mx-auto max-w-2xl px-4 py-20 text-center">
+      <SearchX size={56} className="mx-auto text-[#9ca3af]" />
+      <h1 className="mt-6 text-3xl font-black">Page not found.</h1>
+      <p className="mt-3 text-[#4b5563]">
+        The page you are looking for doesn&apos;t exist or has moved. Try
+        searching for the gear you need instead.
+      </p>
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link
           href="/"
-          className="press mt-8 inline-flex min-h-12 items-center justify-center rounded-full bg-[#15110a] px-6 text-sm font-black uppercase tracking-wide text-white"
+          className="rounded-sm bg-[#8b641e] px-6 py-3 text-sm font-black uppercase text-white"
         >
-          Back home
+          Back to home
         </Link>
-      </section>
-      <SiteFooter />
+        <Link
+          href="/search"
+          className="rounded-sm border-2 border-[#8b641e] px-6 py-3 text-sm font-black uppercase text-[#8b641e]"
+        >
+          Browse all products
+        </Link>
+      </div>
     </main>
   );
 }

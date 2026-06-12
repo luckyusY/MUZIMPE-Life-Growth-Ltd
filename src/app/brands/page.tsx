@@ -1,35 +1,47 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { StorePage } from "@/components/storefront";
-import { brands } from "@/lib/site-data";
+import { brandsOf, byBrand } from "@/lib/catalog";
+import { getAllProducts } from "@/lib/products-db";
 
-export default function BrandsPage() {
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Shop by Brand",
+  description:
+    "EBGS, MUZIMPE, and selected wellness products with guidance in Kigali.",
+};
+
+export default async function BrandsPage() {
+  const allProducts = await getAllProducts();
+
   return (
-    <StorePage
-      eyebrow="Brands"
-      title="Shop by EBGS wellness brand."
-      text="Browse natural living products by brand, collection and product family."
-    >
-      <section className="bg-white px-5 py-14 sm:px-8">
-        <div className="mx-auto grid w-full max-w-[1440px] gap-4 md:grid-cols-3">
-          {brands.map((brand) => (
+    <main className="mx-auto max-w-7xl px-4 py-8">
+      <h1 className="text-3xl font-black">Shop by Brand</h1>
+      <p className="mt-2 max-w-2xl text-sm text-[#4b5563]">
+        We stock genuine products from the brands professionals trust, all
+        supported by MUZIMPE guidance in Kigali.
+      </p>
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {brandsOf(allProducts).map((brand) => {
+          const count = byBrand(allProducts, brand).length;
+          return (
             <Link
-              key={brand.slug}
-              href={`/brands/${brand.slug}`}
-              className="retail-card group rounded-lg p-8 transition hover:-translate-y-1"
+              key={brand}
+              href={`/brands/${brand.toLowerCase()}`}
+              className="group grid min-h-32 place-items-center rounded bg-white p-6 text-center shadow-sm ring-1 ring-black/10 transition hover:ring-[#8b641e]"
             >
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8b641e]">
-                Brand
-              </p>
-              <h2 className="mt-3 text-3xl font-black text-[#15110a]">
-                {brand.name}
-              </h2>
-              <p className="mt-4 leading-7 text-[#6b5f4c]">
-                View available products and wellness selections.
-              </p>
+              <span>
+                <span className="block text-2xl font-black group-hover:text-[#8b641e]">
+                  {brand}
+                </span>
+                <span className="mt-1 block text-xs font-bold text-[#6b7280]">
+                  {count} {count === 1 ? "product" : "products"}
+                </span>
+              </span>
             </Link>
-          ))}
-        </div>
-      </section>
-    </StorePage>
+          );
+        })}
+      </div>
+    </main>
   );
 }

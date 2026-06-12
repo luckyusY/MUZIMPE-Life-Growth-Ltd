@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 :root {
+  /* Brand palette: MUZIMPE black, gold, and warm white */
   --brand-black: #15110a;
   --brand-ink: #050505;
   --brand-gold: #8b641e;
   --brand-gold-bright: #d9a441;
   --brand-gold-light: #ffcf57;
+
   --background: #f6f2ea;
   --foreground: #15110a;
   --surface: #ffffff;
@@ -18,22 +20,29 @@
   --color-brand-black: var(--brand-black);
   --color-brand-gold: var(--brand-gold);
   --color-brand-gold-bright: var(--brand-gold-bright);
-  --font-sans: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Segoe UI Mono", Consolas, ui-monospace, monospace;
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+/* Class-based dark mode — toggled by the theme switcher (see ThemeToggle). */
+html.dark {
+  --background: #0c0a07;
+  --foreground: #ece3d3;
+  --surface: #15110a;
+  --rail-fade: #0c0a07;
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+/* ---------- Touch friendliness ---------- */
 
 * {
   -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 button,
@@ -44,39 +53,20 @@ input[type="checkbox"] {
   touch-action: manipulation;
 }
 
+button:active,
+a:active {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Pressed feedback on primary action buttons */
 .press {
   transition: transform 0.12s ease;
 }
-
 .press:active {
   transform: scale(0.97);
 }
 
-.gold-ribbon {
-  background: #8b641e;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
-}
-
-.retail-card {
-  background: #ffffff;
-  border: 1px solid #e7ddc7;
-  box-shadow: 0 10px 30px rgba(21, 17, 10, 0.06);
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-33.333%);
-  }
-}
-
-.animate-marquee {
-  animation: marquee 22s linear infinite;
-}
-
+/* Thin, unobtrusive scrollbars for product rails */
 .rail-scroll {
   scrollbar-width: thin;
   scrollbar-color: #e7ddc7 transparent;
@@ -84,55 +74,347 @@ input[type="checkbox"] {
   scroll-padding-left: 8px;
   -webkit-overflow-scrolling: touch;
 }
-
 .rail-scroll::-webkit-scrollbar {
   height: 6px;
 }
-
 .rail-scroll::-webkit-scrollbar-thumb {
   background: #e7ddc7;
   border-radius: 9999px;
 }
-
 .rail-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- Hero Swiper ---------- */
+
+.hero-swiper .swiper-pagination {
+  bottom: 10px;
+}
+.hero-swiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px !important;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  opacity: 1;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.hero-swiper .swiper-pagination-bullet-active {
+  background: #ffffff;
+  border-color: #8b641e;
+  transform: scale(1.2);
+}
+.hero-swiper .swiper-button-prev,
+.hero-swiper .swiper-button-next {
+  width: 44px;
+  height: 56px;
+  margin-top: -28px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.25);
+  transition: background 0.2s ease;
+}
+.hero-swiper .swiper-button-prev {
+  left: 0;
+  border-radius: 0 9999px 9999px 0;
+}
+.hero-swiper .swiper-button-next {
+  right: 0;
+  border-radius: 9999px 0 0 9999px;
+}
+.hero-swiper .swiper-button-prev:hover,
+.hero-swiper .swiper-button-next:hover {
+  background: rgba(0, 0, 0, 0.45);
+}
+.hero-swiper .swiper-button-prev::after,
+.hero-swiper .swiper-button-next::after {
+  font-size: 20px;
+  font-weight: 900;
+}
+@media (max-width: 640px) {
+  .hero-swiper .swiper-button-prev,
+  .hero-swiper .swiper-button-next {
+    display: none; /* swipe gestures on touch */
+  }
+}
+
+/* ---------- Card rail Swiper ---------- */
+
+.card-swiper {
+  width: 100%;
+}
+/* Stretch every slide to the tallest card so titles/prices line up and all
+   product cards in a rail share one height. */
+.card-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+.card-swiper .swiper-slide {
+  height: auto;
+}
+.card-swiper .swiper-slide,
+.card-swiper .swiper-slide a,
+.card-swiper .swiper-slide img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+.card-swiper .swiper-button-prev,
+.card-swiper .swiper-button-next {
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #8b641e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  border: 1px solid #e7ddc7;
+  transition: background 0.15s ease, transform 0.15s ease, opacity 0.2s ease;
+}
+.card-swiper .swiper-button-prev:hover,
+.card-swiper .swiper-button-next:hover {
+  background: #f6f2ea;
+  transform: scale(1.06);
+}
+.card-swiper .swiper-button-prev::after,
+.card-swiper .swiper-button-next::after {
+  font-size: 15px;
+  font-weight: 900;
+}
+.card-swiper .swiper-button-disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .card-swiper .swiper-button-prev,
+  .card-swiper .swiper-button-next {
+    display: none; /* swipe gestures on touch */
+  }
+}
+
+/* ---------- Product rich text ---------- */
+
+.product-rich-text :where(h2, h3, h4) {
+  margin: 1.1em 0 0.45em;
+  color: #111827;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.product-rich-text h2 {
+  font-size: 1.35rem;
+}
+.product-rich-text h3 {
+  font-size: 1.15rem;
+}
+.product-rich-text :where(p, ul, ol, table) {
+  margin-top: 0.85rem;
+}
+.product-rich-text :where(ul, ol) {
+  padding-left: 1.35rem;
+}
+.product-rich-text ul {
+  list-style: disc;
+}
+.product-rich-text ol {
+  list-style: decimal;
+}
+.product-rich-text a {
+  color: #8b641e;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.product-rich-text table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.product-rich-text :where(th, td) {
+  border: 1px solid #e7ddc7;
+  padding: 0.65rem;
+  text-align: left;
+}
+
+/* ---------- Loading skeletons ---------- */
 
 .skeleton {
   position: relative;
   overflow: hidden;
   background: #e7ddc7;
 }
-
 .skeleton::after {
   content: "";
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
   animation: skeleton-shimmer 1.4s infinite;
 }
-
 @keyframes skeleton-shimmer {
   100% {
     transform: translateX(100%);
   }
 }
 
+/* ---------- Mobile menu sheet ---------- */
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.sheet-backdrop {
+  animation: backdrop-in 0.2s ease forwards;
+}
+.sheet-panel {
+  animation: sheet-up 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes panel-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.panel-slide-in {
+  animation: panel-slide-in 0.22s ease forwards;
+}
+
+/* Lock body scroll behind overlays */
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* Footer accordions: collapsible on mobile, always open on desktop */
+.footer-acc summary::-webkit-details-marker {
+  display: none;
+}
+.footer-acc summary {
+  list-style: none;
+  cursor: pointer;
+}
+.footer-acc .footer-acc-body {
+  display: none;
+}
+.footer-acc[open] .footer-acc-body {
+  display: block;
+}
+.footer-acc .footer-acc-chevron {
+  transition: transform 0.2s ease;
+}
+.footer-acc[open] .footer-acc-chevron {
+  transform: rotate(180deg);
+}
+@media (min-width: 768px) {
+  .footer-acc .footer-acc-body {
+    display: block;
+  }
+  .footer-acc summary {
+    cursor: default;
+    pointer-events: none;
+  }
+  .footer-acc .footer-acc-chevron {
+    display: none;
+  }
+}
+
+/* ---------- Dark theme surface remaps ---------- */
+/* The site uses inline brand colors; these rules flip the common light
+   surfaces to brand-black equivalents when the .dark class is active so the
+   whole site responds to the theme switcher without per-component edits. */
+html.dark .bg-white,
+html.dark .bg-\[\#ffffff\] {
+  background-color: #15110a !important;
+}
+html.dark .bg-\[\#f6f2ea\],
+html.dark .bg-\[\#f1f1f1\],
+html.dark .bg-\[\#f2f2f2\],
+html.dark .bg-\[\#f5f5f5\],
+html.dark .bg-\[\#f0f0f0\] {
+  background-color: #0c0a07 !important;
+}
+html.dark .bg-\[\#f8fafc\],
+html.dark .bg-\[\#fafafa\],
+html.dark .bg-\[\#f7f9fb\],
+html.dark .bg-\[\#eeeeee\] {
+  background-color: #1c1710 !important;
+}
+html.dark .text-black,
+html.dark .text-\[\#111827\],
+html.dark .text-\[\#15110a\],
+html.dark .text-\[\#050505\] {
+  color: #ece3d3 !important;
+}
+html.dark .text-\[\#333\],
+html.dark .text-\[\#374151\],
+html.dark .text-\[\#4b5563\] {
+  color: #c4b9a4 !important;
+}
+html.dark .text-\[\#6b7280\],
+html.dark .text-\[\#777\],
+html.dark .text-\[\#9ca3af\] {
+  color: #9a8f7d !important;
+}
+/* Lift the gold links to the brighter brand gold on dark backgrounds. */
+html.dark .text-\[\#8b641e\] {
+  color: #d9a441 !important;
+}
+html.dark .border-\[\#e7ddc7\],
+html.dark .border-\[\#d9d9d9\],
+html.dark .border-\[\#e5e7eb\],
+html.dark .border-\[\#eeeeee\] {
+  border-color: #2a2113 !important;
+}
+
+/* ---------- Horizontal scroll affordance (mobile) ---------- */
+/* Fade on the right edge of rails hints there is more to scroll. */
+.rail-fade {
+  background: linear-gradient(to left, var(--rail-fade), transparent);
+}
+@keyframes swipe-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+.swipe-hint {
+  animation: swipe-nudge 1.5s ease-in-out infinite;
+}
+
+/* ---------- Reduced motion ---------- */
+
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .animate-marquee {
-    animation: none;
-  }
-
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

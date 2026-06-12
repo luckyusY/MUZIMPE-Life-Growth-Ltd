@@ -1,61 +1,121 @@
+import { BadgeCheck, HeartPulse, Sprout, Truck, Users } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
-import { PageHero, SiteFooter } from "@/components/site-chrome";
-import { MotionMain, Reveal } from "@/components/site-motion";
-import { trustPoints } from "@/lib/site-data";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "MUZIMPE Life & Growth Ltd promotes health, wellness, natural living, entrepreneurship, family guidance, and life growth through EBGS in Kigali.",
+};
+
+const pillars = [
+  {
+    icon: HeartPulse,
+    title: "Health and wellness",
+    body: "We help customers choose natural products and build practical routines that fit real family life.",
+  },
+  {
+    icon: Sprout,
+    title: "EBGS natural living",
+    body: "Through EBGS - Episerie Bio Gloriette Sante, we focus on natural oils, herbal care, and everyday wellness support.",
+  },
+  {
+    icon: Users,
+    title: "Family and life growth",
+    body: "MUZIMPE supports families with grounded guidance around healthier habits, confidence, and direction.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Entrepreneurship support",
+    body: "We encourage customers and partners who want to grow in business while staying rooted in wellness and service.",
+  },
+];
 
 export default function AboutPage() {
   return (
-    <MotionMain>
-      <PageHero
-        eyebrow="About us"
-        title="A Kigali company for wellness, family support and growth."
-        text="MUZIMPE Life & Growth Ltd brings together natural living through EBGS, practical family guidance and entrepreneurship support."
-      />
-
-      <section className="bg-white py-16">
-        <div className="mx-auto grid w-full max-w-[1440px] gap-10 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <Reveal className="relative min-h-[460px] overflow-hidden rounded-lg bg-[#e8eadf]">
-            <Image
-              src="/products/714dff22-af27-4294-b78c-1f29121f45f0.jpg"
-              alt="Natural product from EBGS"
-              fill
-              className="object-cover"
-              sizes="(min-width: 1024px) 480px, 100vw"
-            />
-          </Reveal>
-          <Reveal delay={0.12} className="flex flex-col justify-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8b641e]">
-              Our direction
-            </p>
-            <h2 className="mt-3 text-4xl font-semibold leading-tight text-[#15110a] sm:text-5xl">
-              We believe growth starts with healthier daily choices.
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-[#6b5f4c]">
-              EBGS - Episerie Bio Gloriette Sante is the natural product side
-              of the company. Around it, MUZIMPE Life & Growth Ltd supports
-              families and entrepreneurs with practical guidance that respects
-              real life, local context and steady progress.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="bg-[#15110a] py-16 text-white">
-        <div className="mx-auto grid w-full max-w-[1440px] gap-5 px-5 sm:px-8 md:grid-cols-2">
-          {trustPoints.map(([title, text], index) => (
-            <Reveal
-              key={title}
-              delay={index * 0.06}
-              className="rounded-lg border border-white/12 bg-white/[0.06] p-6 transition hover:-translate-y-1 hover:bg-white/[0.09]"
+    <main className="bg-[#f6f2ea]">
+      <section className="relative isolate overflow-hidden bg-[#050505] text-white">
+        <Image
+          src="/products/ebgs-wellness-kit/1.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-45"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/20" />
+        <div className="relative mx-auto max-w-7xl px-4 py-24 md:py-32">
+          <p className="text-sm font-black uppercase tracking-[0.24em] text-[#ffcf57]">
+            Welcome to MUZIMPE Life & Growth Ltd
+          </p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-black leading-tight md:text-6xl">
+            Natural wellness, family guidance, and entrepreneurship support in Kigali.
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-white/78">
+            We promote health, wellness, and natural living through EBGS while
+            supporting people who want to grow their family life, confidence,
+            and business path.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/c/wellness"
+              className="rounded bg-[#d9a441] px-6 py-3 text-sm font-black uppercase tracking-wide text-black"
             >
-              <p className="text-2xl font-semibold text-[#d9a441]">{title}</p>
-              <p className="mt-3 leading-7 text-white/76">{text}</p>
-            </Reveal>
-          ))}
+              Shop EBGS
+            </Link>
+            <Link
+              href="/support"
+              className="rounded border border-white/30 px-6 py-3 text-sm font-black uppercase tracking-wide"
+            >
+              Contact Us
+            </Link>
+          </div>
         </div>
       </section>
 
-      <SiteFooter />
-    </MotionMain>
+      <section className="mx-auto grid max-w-7xl gap-4 px-4 py-12 md:grid-cols-4">
+        {pillars.map((pillar) => {
+          const Icon = pillar.icon;
+          return (
+            <article key={pillar.title} className="bg-white p-6 shadow-sm">
+              <Icon className="text-[#8b641e]" size={30} />
+              <h2 className="mt-4 text-xl font-black">{pillar.title}</h2>
+              <p className="mt-3 text-sm leading-6 text-[#5f5648]">{pillar.body}</p>
+            </article>
+          );
+        })}
+      </section>
+
+      <section className="bg-[#15110a] px-4 py-12 text-white">
+        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+          <div className="relative min-h-[360px] overflow-hidden">
+            <Image
+              src="/products/black-seeds-flax-seeds-oil/1.jpg"
+              alt="MUZIMPE natural wellness product"
+              fill
+              sizes="(min-width: 768px) 42vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <Truck className="text-[#ffcf57]" size={34} />
+            <h2 className="mt-4 text-3xl font-black md:text-5xl">
+              Visit us at BH Plaza, 3rd floor.
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-8 text-white/75">
+              Find MUZIMPE near Matheus and Yussa Plaza in Kigali. Come for
+              products, guidance, pickup, and direct conversation with the team.
+            </p>
+            <Link
+              href="/stores"
+              className="mt-7 inline-flex rounded bg-[#d9a441] px-6 py-3 text-sm font-black uppercase tracking-wide text-black"
+            >
+              Store Details
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

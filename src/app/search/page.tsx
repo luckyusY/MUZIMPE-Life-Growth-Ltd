@@ -1,33 +1,42 @@
-import { ProductGrid, StorePage } from "@/components/storefront";
-import { products } from "@/lib/site-data";
+import type { Metadata } from "next";
+import {
+  ProductListing,
+  type ListingSearchParams,
+} from "@/components/product-listing";
+import { brandsOf, searchIn } from "@/lib/catalog";
+import { getAllProducts } from "@/lib/products-db";
 
-export default async function SearchPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const { q = "" } = await searchParams;
-  const query = q.trim().toLowerCase();
-  const results = query
-    ? products.filter((product) =>
-        [product.name, product.detail, product.brand, product.category]
-          .join(" ")
-          .toLowerCase()
-          .includes(query)
-      )
-    : products;
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Search",
+};
+
+type Props = {
+  searchParams: Promise<ListingSearchParams & { q?: string }>;
+};
+
+export default async function SearchPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const query = (params.q ?? "").trim();
+  const allProducts = await getAllProducts();
+  const results = query ? searchIn(allProducts, query) : allProducts;
 
   return (
-    <StorePage
-      eyebrow="Search"
-      title={query ? `Results for "${q}"` : "Search EBGS products"}
-      text="Find products, brands, categories and guidance across the MUZIMPE storefront."
-    >
-      <section className="bg-white px-5 py-14 sm:px-8">
-        <div className="mx-auto w-full max-w-[1440px]">
-          <ProductGrid products={results} />
-        </div>
-      </section>
-    </StorePage>
+    <main>
+      <ProductListing
+        title={query ? `Results for "${query}"` : "All Products"}
+        subtitle={
+          query
+            ? "Can't find what you need? We can source most gear on request — contact us."
+            : "Browse the full MUZIMPE Life & Growth Ltd catalog."
+        }
+        basePath="/search"
+        products={results}
+        params={params}
+        availableBrands={brandsOf(results)}
+        extraParams={query ? { q: query } : undefined}
+      />
+    </main>
   );
 }

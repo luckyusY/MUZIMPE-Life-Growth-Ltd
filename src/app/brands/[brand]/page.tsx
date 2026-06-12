@@ -1,36 +1,47 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ProductGrid, StorePage } from "@/components/storefront";
-import { brandSlug, brands, getBrandBySlug, products } from "@/lib/site-data";
+import {
+  ProductListing,
+  type ListingSearchParams,
+} from "@/components/product-listing";
+import { brandsOf, byBrand } from "@/lib/catalog";
+import { getAllProducts } from "@/lib/products-db";
 
-export function generateStaticParams() {
-  return brands.map((brand) => ({ brand: brand.slug }));
+export const dynamic = "force-dynamic";
+
+type Props = {
+  params: Promise<{ brand: string }>;
+  searchParams: Promise<ListingSearchParams>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const slug = decodeURIComponent((await params).brand);
+  return {
+    title: `${slug.charAt(0).toUpperCase()}${slug.slice(1)} Products`,
+    description: `Genuine ${slug} wellness products and guidance in Kigali.`,
+  };
 }
 
-export default async function BrandPage({
-  params,
-}: {
-  params: Promise<{ brand: string }>;
-}) {
-  const { brand: slug } = await params;
-  const brand = getBrandBySlug(slug);
+export default async function BrandPage({ params, searchParams }: Props) {
+  const slug = decodeURIComponent((await params).brand);
+  const allProducts = await getAllProducts();
+  const brand = brandsOf(allProducts).find(
+    (b) => b.toLowerCase() === slug.toLowerCase(),
+  );
+  if (!brand) notFound();
 
-  if (!brand) {
-    notFound();
-  }
-
-  const brandProducts = products.filter((product) => brandSlug(product.brand) === slug);
+  const products = byBrand(allProducts, brand);
 
   return (
-    <StorePage
-      eyebrow="Brand"
-      title={brand.name}
-      text="A dedicated brand collection page matching the Photo Factory route structure."
-    >
-      <section className="bg-white px-5 py-14 sm:px-8">
-        <div className="mx-auto w-full max-w-[1440px]">
-          <ProductGrid products={brandProducts} />
-        </div>
-      </section>
-    </StorePage>
+    <main>
+      <ProductListing
+        title={brand}
+        subtitle={`Genuine ${brand} products selected for natural wellness and supported by MUZIMPE guidance.`}
+        basePath={`/brands/${slug.toLowerCase()}`}
+        products={products}
+        params={await searchParams}
+        availableBrands={[brand]}
+      />
+    </main>
   );
 }

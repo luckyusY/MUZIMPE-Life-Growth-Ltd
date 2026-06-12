@@ -1,16 +1,15 @@
-import { EmptyState, StorePage } from "@/components/storefront";
+import type { Metadata } from "next";
+import { WishlistView } from "@/components/wishlist-view";
+
+export const metadata: Metadata = {
+  title: "Wishlist",
+};
 
 export default function WishlistPage() {
   return (
-    <StorePage
-      eyebrow="Wishlist"
-      title="Saved wellness picks."
-      text="Keep products you want to ask about later."
-    >
-      <EmptyState
-        title="No saved products yet."
-        text="Use this route like the reference wishlist page. Real save behavior can be connected later."
-      />
-    </StorePage>
+    <main className="mx-auto max-w-7xl px-4 py-8">
+      <h1 className="mb-6 text-3xl font-black">My Wishlist</h1>
+      <WishlistView />
+    </main>
   );
 }

@@ -1,21 +1,37 @@
-import { AdminPageShell } from "@/components/admin-page-shell";
+import type { Metadata } from "next";
+import { AdminBar } from "@/components/admin/admin-bar";
+import { HeroEditor } from "@/components/admin/hero-editor";
+import { requireAdmin } from "@/lib/admin-auth";
+import { isDbConfigured } from "@/lib/products-db";
+import { getHeroSlides } from "@/lib/site-content";
 
-export default function AdminHeroPage() {
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Edit Hero Slides",
+  robots: { index: false },
+};
+
+export default async function AdminHeroPage() {
+  await requireAdmin();
+  const slides = await getHeroSlides();
+
   return (
-    <AdminPageShell
-      title="Hero Editor"
-      text="Edit the homepage hero, promotional bars and spotlight messaging."
-    >
-      <div className="grid gap-4 rounded-lg border border-[#e7ddc7] bg-white p-6">
-        {["Promo bar", "Hero headline", "Hero text", "Primary CTA"].map((field) => (
-          <label key={field}>
-            <span className="text-sm font-black uppercase tracking-wide text-[#8b641e]">
-              {field}
-            </span>
-            <textarea className="mt-2 min-h-24 w-full rounded-md border border-[#e7ddc7] bg-[#f6f2ea] p-3" />
-          </label>
-        ))}
+    <main className="mx-auto max-w-7xl px-4 py-8">
+      <AdminBar />
+      <h1 className="text-3xl font-black">Hero Slides</h1>
+      <p className="mt-2 max-w-2xl text-sm text-[#4b5563]">
+        Manage the homepage hero carousel — reorder, edit copy, swap images, and
+        add or remove slides. Changes go live within a few minutes.
+      </p>
+      {!isDbConfigured() && (
+        <p className="mt-4 rounded bg-[#fef3c7] p-4 text-sm font-semibold text-[#92400e]">
+          MongoDB is not configured — changes cannot be saved right now.
+        </p>
+      )}
+      <div className="mt-6">
+        <HeroEditor initial={slides} />
       </div>
-    </AdminPageShell>
+    </main>
   );
 }

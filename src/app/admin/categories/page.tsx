@@ -1,23 +1,37 @@
-import { AdminPageShell } from "@/components/admin-page-shell";
-import { categories } from "@/lib/site-data";
+import type { Metadata } from "next";
+import { AdminBar } from "@/components/admin/admin-bar";
+import { CategoriesEditor } from "@/components/admin/categories-editor";
+import { requireAdmin } from "@/lib/admin-auth";
+import { isDbConfigured } from "@/lib/products-db";
+import { getCategoryContent } from "@/lib/site-content";
 
-export default function AdminCategoriesPage() {
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Edit Categories",
+  robots: { index: false },
+};
+
+export default async function AdminCategoriesPage() {
+  await requireAdmin();
+  const categoryContent = await getCategoryContent();
+
   return (
-    <AdminPageShell
-      title="Categories"
-      text="Manage category names and descriptions."
-    >
-      <div className="grid gap-3">
-        {categories.map((category) => (
-          <div
-            key={category.slug}
-            className="grid gap-3 rounded-lg border border-[#e7ddc7] bg-white p-4 md:grid-cols-[0.5fr_1fr]"
-          >
-            <input defaultValue={category.name} className="rounded-md border border-[#e7ddc7] px-3 py-2" />
-            <input defaultValue={category.description} className="rounded-md border border-[#e7ddc7] px-3 py-2" />
-          </div>
-        ))}
+    <main className="mx-auto max-w-7xl px-4 py-8">
+      <AdminBar />
+      <h1 className="text-3xl font-black">Categories</h1>
+      <p className="mt-2 max-w-2xl text-sm text-[#4b5563]">
+        Edit the name, description, and image shown for each department across
+        the homepage, navigation pages, and category headers.
+      </p>
+      {!isDbConfigured() && (
+        <p className="mt-4 rounded bg-[#fef3c7] p-4 text-sm font-semibold text-[#92400e]">
+          MongoDB is not configured — changes cannot be saved right now.
+        </p>
+      )}
+      <div className="mt-6">
+        <CategoriesEditor initial={categoryContent} />
       </div>
-    </AdminPageShell>
+    </main>
   );
 }
