@@ -57,7 +57,7 @@ export function HeroShowcase() {
               className="object-cover"
               sizes="(min-width: 1024px) 480px, 90vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#102019]/92 via-[#102019]/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#15110a]/92 via-[#15110a]/20 to-transparent" />
           </motion.div>
         </AnimatePresence>
 
@@ -70,7 +70,7 @@ export function HeroShowcase() {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.45, ease: "easeOut" }}
             >
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c14e]">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#d9a441]">
                 {slide.eyebrow}
               </p>
               <h2 className="mt-2 text-3xl font-semibold leading-tight text-white">
@@ -92,7 +92,7 @@ export function HeroShowcase() {
             aria-label={`Show ${item.title}`}
           >
             <span
-              className={`block h-full rounded-full bg-[#f2c14e] transition-all duration-500 ${
+              className={`block h-full rounded-full bg-[#d9a441] transition-all duration-500 ${
                 index === active ? "w-full" : "w-0 group-hover:w-1/2"
               }`}
             />

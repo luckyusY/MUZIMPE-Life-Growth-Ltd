@@ -44,7 +44,7 @@ export function SmoothScroll() {
 export function MotionMain({ children }: { children: ReactNode }) {
   return (
     <motion.main
-      className="min-h-screen overflow-x-hidden bg-[#fbfaf7] text-[#22251f]"
+      className="min-h-screen overflow-x-hidden bg-[#f6f2ea] text-[#15110a]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.7, ease: "easeOut" }}

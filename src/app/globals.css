@@ -1,22 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-black: #15110a;
+  --brand-ink: #050505;
+  --brand-gold: #8b641e;
+  --brand-gold-bright: #d9a441;
+  --brand-gold-light: #ffcf57;
+  --background: #f6f2ea;
+  --foreground: #15110a;
+  --surface: #ffffff;
+  --rail-fade: #f6f2ea;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-black: var(--brand-black);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-bright: var(--brand-gold-bright);
   --font-sans: Arial, Helvetica, ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Segoe UI Mono", Consolas, ui-monospace, monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -25,8 +28,39 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+button,
+a,
+label,
+select,
+input[type="checkbox"] {
+  touch-action: manipulation;
+}
+
+.press {
+  transition: transform 0.12s ease;
+}
+
+.press:active {
+  transform: scale(0.97);
+}
+
+.gold-ribbon {
+  background: #8b641e;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
+}
+
+.retail-card {
+  background: #ffffff;
+  border: 1px solid #e7ddc7;
+  box-shadow: 0 10px 30px rgba(21, 17, 10, 0.06);
 }
 
 @keyframes marquee {
@@ -43,6 +77,48 @@ html {
   animation: marquee 22s linear infinite;
 }
 
+.rail-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #e7ddc7 transparent;
+  scroll-snap-type: x proximity;
+  scroll-padding-left: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rail-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.rail-scroll::-webkit-scrollbar-thumb {
+  background: #e7ddc7;
+  border-radius: 9999px;
+}
+
+.rail-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #e7ddc7;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: skeleton-shimmer 1.4s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -50,5 +126,13 @@ html {
 
   .animate-marquee {
     animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
