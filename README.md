@@ -2,7 +2,14 @@
 
 Next.js website for MUZIMPE Life & Growth Ltd and EBGS - Episerie Bio Gloriette Sante.
 
-The site uses Lenis for smooth scrolling, Framer Motion for page and section animations, a sliding hero showcase, WhatsApp contact actions, multiple public pages, and an `/admin` dashboard mockup for managing content.
+The site uses Lenis for smooth scrolling, Framer Motion for page and section animations, a sliding hero showcase, WhatsApp contact actions, and a Photo Factory-inspired ecommerce structure.
+
+## Route Structure
+
+- Storefront: `/`, `/deals`, `/products`, `/brands`, `/brands/[brand]`, `/c/[category]`, `/p/[slug]`, `/search`
+- Customer flow: `/cart`, `/wishlist`, `/checkout`, `/checkout/confirmation`, `/account`
+- Business pages: `/about`, `/services`, `/stores`, `/support`, `/contact`, `/used`, `/used/sell`
+- Admin: `/admin`, `/admin/login`, `/admin/products`, `/admin/products/new`, `/admin/products/edit`, `/admin/hero`, `/admin/categories`
 
 ## Business Details
 

@@ -2,11 +2,15 @@ import Link from "next/link";
 import { contactLinks, whatsappUrl } from "@/lib/site-data";
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
+  { label: "Deals", href: "/deals" },
   { label: "Products", href: "/products" },
-  { label: "Contact", href: "/contact" },
+  { label: "Brands", href: "/brands" },
+  { label: "Used", href: "/used" },
+  { label: "Stores", href: "/stores" },
+  { label: "Support", href: "/support" },
+  { label: "Cart", href: "/cart" },
+  { label: "Wishlist", href: "/wishlist" },
+  { label: "Account", href: "/account" },
 ];
 
 export function SiteHeader() {
@@ -21,9 +25,9 @@ export function SiteHeader() {
       <div className="hidden border-y border-[#d9a441]/25 bg-[#15110a] text-white sm:block">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-1 text-[10px] font-semibold uppercase tracking-wide 2xl:px-6">
           <div className="hidden gap-5 md:flex">
-            <Link href="/about">Life Growth</Link>
-            <Link href="/products">EBGS Products</Link>
-            <Link href="/services">Family Guidance</Link>
+            <Link href="/about">Business & Families</Link>
+            <Link href="/services">Life Growth</Link>
+            <Link href="/used/sell">Sell / Exchange</Link>
           </div>
           <div className="ml-auto flex items-center gap-4">
             <a href="tel:+250781375870">0781375870</a>
@@ -44,7 +48,7 @@ export function SiteHeader() {
               Life & Growth Ltd
             </span>
           </Link>
-          <form action="/products" className="relative min-w-0">
+          <form action="/search" className="relative min-w-0">
             <input
               name="q"
               aria-label="Search products and services"
