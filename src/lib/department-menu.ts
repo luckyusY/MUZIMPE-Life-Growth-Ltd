@@ -1,3 +1,5 @@
+import { productImage, serviceImage } from "@/lib/cloudinary-assets";
+
 export type DepartmentGroup = {
   title: string;
   links: string[];
@@ -10,10 +12,6 @@ export type Department = {
   imageLabel: string;
   groups: DepartmentGroup[];
 };
-
-const productImage = (slug: string) => `/products/${slug}/1.jpg`;
-const u = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=700&q=80`;
 
 export const departments: Department[] = [
   {
@@ -59,7 +57,7 @@ export const departments: Department[] = [
   {
     slug: "entrepreneurship",
     label: "Entrepreneurship",
-    image: u("photo-1556761175-b413da4baf72"),
+    image: serviceImage("entrepreneurship-support"),
     imageLabel: "ENTREPRENEURSHIP",
     groups: [
       { title: "Growth Support", links: ["Starter Advice", "Business Guidance", "Product Sales", "Client Care"] },

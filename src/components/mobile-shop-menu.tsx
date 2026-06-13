@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useStore } from "@/components/store-context";
+import { productImage, serviceImage } from "@/lib/cloudinary-assets";
 import { WHATSAPP_URL } from "@/lib/contact";
 
 type MenuItem = {
@@ -32,37 +33,37 @@ const items: MenuItem[] = [
     label: "Natural Oils",
     href: "/c/natural-oils",
     icon: Sprout,
-    image: "/products/black-seeds-flax-seeds-oil/1.jpg",
+    image: productImage("black-seeds-flax-seeds-oil"),
   },
   {
     label: "Wellness",
     href: "/c/wellness",
     icon: HeartPulse,
-    image: "/products/ebgs-wellness-kit/1.jpg",
+    image: productImage("ebgs-wellness-kit"),
   },
   {
     label: "Herbal Care",
     href: "/c/herbal-care",
     icon: Sparkles,
-    image: "/products/herbal-wellness-blend/1.jpg",
+    image: productImage("herbal-wellness-blend"),
   },
   {
     label: "Family Guidance",
     href: "/c/family-guidance",
     icon: User,
-    image: "/products/family-health-support/1.jpg",
+    image: serviceImage("family-guidance"),
   },
   {
     label: "Entrepreneurship",
     href: "/c/entrepreneurship",
     icon: Package,
-    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=240&q=80",
+    image: serviceImage("entrepreneurship-support"),
   },
   {
     label: "Life Growth",
     href: "/c/life-growth",
     icon: Sparkles,
-    image: "/products/life-growth-pack/1.jpg",
+    image: serviceImage("life-growth-coaching"),
   },
 ];
 

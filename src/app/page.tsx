@@ -15,6 +15,7 @@ import { DealCard } from "@/components/deal-card";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
+import { productImage, serviceImage } from "@/lib/cloudinary-assets";
 import { dealsOf, sortProducts } from "@/lib/catalog";
 import { WHATSAPP_URL } from "@/lib/contact";
 import { getAllProducts } from "@/lib/products-db";
@@ -74,7 +75,7 @@ export default async function Home() {
             >
               <div className="relative aspect-square">
                 <Image
-                  src={categoryImages.get(item.slug) ?? "/products/ebgs-wellness-kit/1.jpg"}
+                  src={categoryImages.get(item.slug) ?? productImage("ebgs-wellness-kit")}
                   alt=""
                   fill
                   sizes="33vw"
@@ -127,7 +128,7 @@ export default async function Home() {
       <section className="grid bg-[#050505] text-white md:grid-cols-2">
         <Link href="/c/natural-oils" className="group relative min-h-[360px] overflow-hidden">
           <Image
-            src="/products/black-seeds-flax-seeds-oil/1.jpg"
+            src={productImage("black-seeds-flax-seeds-oil")}
             alt=""
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
@@ -145,7 +146,7 @@ export default async function Home() {
         </Link>
         <Link href="/c/life-growth" className="group relative min-h-[360px] overflow-hidden">
           <Image
-            src="/services/life-growth-coaching.png"
+            src={serviceImage("life-growth-coaching")}
             alt=""
             fill
             sizes="(min-width: 768px) 50vw, 100vw"

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { DealCard } from "@/components/deal-card";
 import { ProductCard } from "@/components/product-card";
+import { serviceImage } from "@/lib/cloudinary-assets";
 import { dealsOf, sortProducts } from "@/lib/catalog";
 import { WHATSAPP_URL } from "@/lib/contact";
 import { getAllProducts } from "@/lib/products-db";
@@ -38,7 +39,7 @@ export default async function DealsPage() {
     <main className="bg-[#f6f2ea]">
       <section className="relative isolate overflow-hidden bg-[#050505] text-white">
         <Image
-          src="/products/natural-living-set/1.jpg"
+          src={serviceImage("ebgs-natural-living")}
           alt=""
           fill
           priority

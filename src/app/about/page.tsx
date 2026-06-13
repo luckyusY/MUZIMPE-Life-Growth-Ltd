@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { BusinessServicesCarousel } from "@/components/business-services-carousel";
+import { productImage, serviceImage } from "@/lib/cloudinary-assets";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -38,7 +39,7 @@ export default function AboutPage() {
     <main className="bg-[#f6f2ea]">
       <section className="relative isolate overflow-hidden bg-[#050505] text-white">
         <Image
-          src="/products/ebgs-wellness-kit/1.jpg"
+          src={serviceImage("ebgs-natural-living")}
           alt=""
           fill
           priority
@@ -94,7 +95,7 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-center">
           <div className="relative min-h-[360px] overflow-hidden">
             <Image
-              src="/products/black-seeds-flax-seeds-oil/1.jpg"
+              src={productImage("black-seeds-flax-seeds-oil")}
               alt="MUZIMPE natural wellness product"
               fill
               sizes="(min-width: 768px) 42vw, 100vw"

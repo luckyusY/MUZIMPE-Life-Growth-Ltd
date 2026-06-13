@@ -1,3 +1,5 @@
+import { productImage, serviceImage } from "@/lib/cloudinary-assets";
+
 // Client-safe content types and defaults. Admin edits stored in MongoDB
 // (collection `site_content`) override these via src/lib/site-content.ts.
 
@@ -21,9 +23,6 @@ export type CategoryContent = {
   blurb: string;
   image: string;
 };
-
-const productImage = (slug: string) => `/products/${slug}/1.jpg`;
-const serviceImage = (slug: string) => `/services/${slug}.png`;
 
 const u = (id: string, width = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`;
@@ -99,6 +98,6 @@ export const defaultCategoryImages: Record<string, string> = {
   wellness: productImage("ebgs-wellness-kit"),
   "herbal-care": productImage("herbal-wellness-blend"),
   "family-guidance": productImage("family-health-support"),
-  entrepreneurship: u("photo-1552664730-d307ca884978", 500),
+  entrepreneurship: serviceImage("entrepreneurship-support"),
   "life-growth": productImage("life-growth-pack"),
 };

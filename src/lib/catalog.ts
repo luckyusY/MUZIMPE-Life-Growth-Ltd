@@ -1,3 +1,5 @@
+import { productImage, serviceImage } from "@/lib/cloudinary-assets";
+
 export type Category = {
   slug: string;
   name: string;
@@ -25,11 +27,6 @@ export type Product = {
   description: string;
   specs: { label: string; value: string }[];
 };
-
-const productImage = (slug: string) => `/products/${slug}/1.jpg`;
-
-const u = (id: string, w = 1000) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const categories: Category[] = [
   {
@@ -60,7 +57,7 @@ export const categories: Category[] = [
     slug: "entrepreneurship",
     name: "Entrepreneurship",
     blurb: "Starter packs, coaching, and resources for life growth.",
-    image: u("photo-1552664730-d307ca884978"),
+    image: serviceImage("entrepreneurship-support"),
   },
   {
     slug: "life-growth",
@@ -232,7 +229,7 @@ const seeds: Seed[] = [
     badge: "Service",
     condition: "New",
     stock: 50,
-    images: [u("photo-1556761175-b413da4baf72"), productImage("life-growth-pack")],
+    images: [serviceImage("entrepreneurship-support"), productImage("life-growth-pack")],
     shortSpecs: ["Business guidance", "Starter advice", "Life growth"],
     description:
       "A focused consultation for people who want practical entrepreneurship support connected to wellness and family life growth.",
