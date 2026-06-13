@@ -20,6 +20,6 @@ export function getMongoClient() {
 }
 
 export async function getDb() {
-  const databaseName = process.env.MONGODB_DB || "photo_factory_rwanda";
+  const databaseName = process.env.MONGODB_DB || "muzimpe_life_growth_ltd";
   return (await getMongoClient().connect()).db(databaseName);
 }
