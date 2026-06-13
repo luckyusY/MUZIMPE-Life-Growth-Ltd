@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BusinessServicesCarousel } from "@/components/business-services-carousel";
 import {
   CONTACT_EMAIL,
   CONTACT_PHONE_DISPLAY,
@@ -84,6 +85,8 @@ export default function SupportPage() {
           );
         })}
       </section>
+
+      <BusinessServicesCarousel compact />
 
       <section className="mx-auto max-w-4xl px-4 pb-16">
         <h2 className="text-3xl font-black">Questions</h2>

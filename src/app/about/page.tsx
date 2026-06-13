@@ -2,6 +2,7 @@ import { BadgeCheck, HeartPulse, Sprout, Truck, Users } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { BusinessServicesCarousel } from "@/components/business-services-carousel";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -86,6 +87,8 @@ export default function AboutPage() {
           );
         })}
       </section>
+
+      <BusinessServicesCarousel compact />
 
       <section className="bg-[#15110a] px-4 py-12 text-white">
         <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-center">

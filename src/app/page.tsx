@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { BusinessServicesCarousel } from "@/components/business-services-carousel";
 import { CardSwiper } from "@/components/card-swiper";
 import { DealCard } from "@/components/deal-card";
 import { HeroCarousel } from "@/components/hero-carousel";
@@ -99,6 +100,8 @@ export default async function Home() {
           })}
         </div>
       </section>
+
+      <BusinessServicesCarousel />
 
       <section className="mx-auto max-w-7xl px-4 py-12">
         <div className="mb-6 flex items-end justify-between gap-4">
