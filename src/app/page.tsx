@@ -145,7 +145,7 @@ export default async function Home() {
         </Link>
         <Link href="/c/life-growth" className="group relative min-h-[360px] overflow-hidden">
           <Image
-            src="/products/life-growth-pack/1.jpg"
+            src="/services/life-growth-coaching.png"
             alt=""
             fill
             sizes="(min-width: 768px) 50vw, 100vw"

@@ -23,6 +23,7 @@ export type CategoryContent = {
 };
 
 const productImage = (slug: string) => `/products/${slug}/1.jpg`;
+const serviceImage = (slug: string) => `/services/${slug}.png`;
 
 const u = (id: string, width = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`;
@@ -57,7 +58,7 @@ export const defaultHeroSlides: HeroSlide[] = [
     priceLine: "Support packs available in Kigali",
     cta: "Family Support",
     href: "/c/family-guidance",
-    image: productImage("family-health-support"),
+    image: serviceImage("family-guidance"),
     tone: "dark",
   },
   {
@@ -67,7 +68,7 @@ export const defaultHeroSlides: HeroSlide[] = [
     priceLine: "Book a business consultation",
     cta: "Business Support",
     href: "/c/entrepreneurship",
-    image: u("photo-1556761175-b413da4baf72"),
+    image: serviceImage("entrepreneurship-support"),
     tone: "light",
     copyPosition: "center",
   },
@@ -79,7 +80,7 @@ export const defaultHeroSlides: HeroSlide[] = [
     priceLine: "Support available at BH Plaza, Kigali",
     cta: "Book Guidance",
     href: "/support",
-    image: u("photo-1517048676732-d65bc937f952"),
+    image: serviceImage("life-growth-coaching"),
     tone: "dark",
   },
   {
